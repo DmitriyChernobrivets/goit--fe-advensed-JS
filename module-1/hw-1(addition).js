@@ -8,7 +8,7 @@ let seatsCount = +prompt('Enter the number of required seats');
 
 switch (true) {
     case ((Number.parseInt(seatsCount) !== seatsCount) || (seatsCount <= 0)):
-        alert('Ошибка ввода');
+        alert('Input Error');
         break;
     case seatsCount <= taba:
         isConfirmed = confirm(`We have seats in group - taba! Would you like to join?`);
@@ -23,5 +23,5 @@ switch (true) {
         if (isConfirmed == true)
             break;
     default:
-        alert('Извините, столько мест нет ни в одной группе!');
+        alert('Sorry, there are not so many places in any group!');
 }
