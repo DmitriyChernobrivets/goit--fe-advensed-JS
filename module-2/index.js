@@ -3,7 +3,7 @@ const numbers = [];
 let sum = 0;
 
 do {
-    userInput = prompt('Введите число, попробуйте еще раз');
+    userInput = prompt('Введите число');
     const isValidInput = !isNaN(userInput) && (userInput !== "") && (userInput !== " ");
     switch (true) {
         case userInput === null:
