@@ -18,6 +18,6 @@ if (!adminPrompt) {
       } else if (adminPromptPw == adminPassword) {
             alert(welcome)
       } else {
-            alert(accessDenied);
+            alert(accessDenied)
       }
 } else alert(accessDenied);
