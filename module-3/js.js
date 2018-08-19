@@ -10,7 +10,7 @@ const isLoginUnique = (allLogins, login) => {
 };
 
 
-const addLogin =  (alllogins, login) => {
+const addLogin =  (login) => {
     switch (true) {
         case !isLoginValid(login):
             return alert('Ошибка! Логин должен быть от 4 до 16 символов');
@@ -22,6 +22,6 @@ const addLogin =  (alllogins, login) => {
     }
 };
 
-addLogin(logins, userInput);
+addLogin(userInput);
 
 console.log(logins);
