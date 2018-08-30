@@ -61,7 +61,7 @@ console.log(mango.name);
 console.log(mango.productDatabase);
 console.log(mango.customerMoney);
 
-let takenMoney = mango.getCustomerMoney(300);
+let takenMoney = mango.getCustomerMoney(100);
 console.log(takenMoney);
 
 const total = mango.countTotalPrice(order);
