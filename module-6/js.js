@@ -110,4 +110,4 @@ hamburger.getStuffing;
 hamburger.calculatePrice;
 hamburger.calculateCalories;
 console.log(hamburger);
-console.log("Is hamburger large: ", hamburger.getSize === Humburger.SIZE_LARGE);
+console.log("Is hamburger large: ", hamburger.getSize === Humburger.SIZE_LARGE[Humburger.SIZE_LARGE]);
