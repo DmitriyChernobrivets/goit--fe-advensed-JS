@@ -21,6 +21,26 @@ class Humburger {
             return console.log('Извините такой приправы нету')
     }
 
+    calculatePrice() {
+        let sum = 0;
+        sum = Humburger.SIZES[this._size].price
+            + Humburger.STUFFINGS[this._stuffing].price
+            + this._toppings.reduce((acc, el) => {
+                return acc += Humburger.TOPPINGS[el].price;
+            }, 0);
+        return sum;
+    }
+
+    calculateCalories() {
+        let sum = 0;
+        sum = Humburger.SIZES[this._size].calories
+            + Humburger.STUFFINGS[this._stuffing].calories
+            + this._toppings.reduce((acc, el) => {
+                return acc += Humburger.TOPPINGS[el].calories;
+            }, 0);
+        return sum;
+    }
+      
     get getToppings() {
         return this._toppings;
     }
@@ -33,33 +53,6 @@ class Humburger {
         return this._stuffing;
     }
     
-    calculatePrice() {
-        let sum = 0;
-        sum = Humburger.SIZES[this._size].price
-            + Humburger.STUFFINGS[this._stuffing].price
-            + this._toppings.reduce((acc, el) => {
-                return acc += Humburger.TOPPINGS[el].price;
-            }, 0);
-        return sum;
-    }
-
-    get price() {
-        return this.calculatePrice();
-    }
-
-    calculateCalories() {
-        let sum = 0;
-        sum = Humburger.SIZES[this._size].calories
-            + Humburger.STUFFINGS[this._stuffing].calories
-            + this._toppings.reduce((acc, el) => {
-                return acc += Humburger.TOPPINGS[el].calories;
-            }, 0);
-        return sum;
-    }
-
-    get calories() {
-        return this.calculateCalories();
-    }
 }
 const hamburger = new Humburger('SIZE_LARGE', 'STUFFING_CHEESE');
 Humburger.SIZE_SMALL = 'SIZE_SMALL';
@@ -109,6 +102,8 @@ Humburger.TOPPINGS = {
         calories: 10,
     },
 };
+
+
 hamburger.addTopping(Humburger.TOPPING_SPICE);
 hamburger.addTopping(Humburger.TOPPING_SAUCE);
 hamburger.removeTopping(Humburger.TOPPING_SAUCE);
@@ -118,5 +113,5 @@ console.log("Текущая начинка: ", hamburger.getStuffing);
 
 console.log("Is hamburger large: ", hamburger.getSize === Humburger[Humburger.SIZE_LARGE]);
 console.log(`Hamburger has ${hamburger.getToppings.length} toppings`);
-console.log("Текущая цена: ", hamburger.price);
-console.log("Текущие кол-во калорий: ", hamburger.calories)
+console.log("Текущая цена: ", hamburger.calculatePrice());
+console.log("Текущие кол-во калорий: ", hamburger.calculateCalories())
