@@ -32,8 +32,8 @@ class Humburger {
     get getStuffing() {
         return this._stuffing;
     }
-
-    get calculatePrice() {
+    
+    calculatePrice() {
         let sum = 0;
         sum = Humburger.SIZES[this._size].price
             + Humburger.STUFFINGS[this._stuffing].price
@@ -43,7 +43,11 @@ class Humburger {
         return sum;
     }
 
-    get calculateCalories() {
+    get price() {
+        return this.calculatePrice();
+    }
+
+    calculateCalories() {
         let sum = 0;
         sum = Humburger.SIZES[this._size].calories
             + Humburger.STUFFINGS[this._stuffing].calories
@@ -51,6 +55,10 @@ class Humburger {
                 return acc += Humburger.TOPPINGS[el].calories;
             }, 0);
         return sum;
+    }
+
+    get calories() {
+        return this.calculateCalories();
     }
 }
 const hamburger = new Humburger('SIZE_LARGE', 'STUFFING_CHEESE');
@@ -107,7 +115,8 @@ hamburger.removeTopping(Humburger.TOPPING_SAUCE);
 console.log("Добавки: ", hamburger.getToppings);
 console.log("Текущий размер: ", hamburger.getSize);
 console.log("Текущая начинка: ", hamburger.getStuffing);
-console.log("Текущая цена: ", hamburger.calculatePrice);
-console.log("Текущие кол-во калорий: ", hamburger.calculateCalories)
+
 console.log("Is hamburger large: ", hamburger.getSize === Humburger[Humburger.SIZE_LARGE]);
 console.log(`Hamburger has ${hamburger.getToppings.length} toppings`);
+console.log("Текущая цена: ", hamburger.price);
+console.log("Текущие кол-во калорий: ", hamburger.calories)
