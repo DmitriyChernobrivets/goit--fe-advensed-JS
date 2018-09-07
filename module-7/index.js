@@ -24,7 +24,7 @@ const posts = [
 
 
 function createPostCard(posts) {
-    const main = document.querySelector('main')
+    const body = document.body;
     const list = document.createElement('div')
     const img = document.createElement('img')
     const title = document.createElement('h2')
@@ -47,8 +47,7 @@ function createPostCard(posts) {
     link.href = posts.link
     link.textContent = "Read more"
 
-    list.append(img, title, text, link)
-    main.append(list)
+    body.appendChild(list).append(img, title, text, link)
 }
 
 const createCards = (posts) => posts.forEach(el => createPostCard(el));
