@@ -22,12 +22,16 @@ const posts = [
     }
 ];
 
+
 function createPostCard(posts) {
-    const list = document.querySelector('.post')
+    const main = document.querySelector('main')
+    const list = document.createElement('div')
     const img = document.createElement('img')
     const title = document.createElement('h2')
     const text = document.createElement('p')
     const link = document.createElement('a')
+
+    list.classList.add('post')
 
     img.classList.add('post__image')
     img.src = posts.img
@@ -44,8 +48,7 @@ function createPostCard(posts) {
     link.textContent = "Read more"
 
     list.append(img, title, text, link)
-
-    return list;
+    main.append(list)
 }
 
 const createCards = (posts) => posts.forEach(el => createPostCard(el));
