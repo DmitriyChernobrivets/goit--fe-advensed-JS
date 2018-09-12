@@ -43,3 +43,6 @@ img {
     filter: opacity(40%);
     transition: .2s linear;
 }
+.js-image-gallery > img {
+    width: 500px;
+}
