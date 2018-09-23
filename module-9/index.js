@@ -1,7 +1,7 @@
 const startBtn = document.querySelector('.js-timer-start');
 const resetBtn = document.querySelector('.js-timer-reset');
-const renderField = document.querySelector('.js-clockface');
-const lap = document.querySelector('.js-take-lap');
+const innerResultField = document.querySelector('.js-clockface');
+const lapBtn = document.querySelector('.js-take-lap');
 const list = document.querySelector('.js-list');
 
 class Timer {
@@ -32,13 +32,13 @@ class Timer {
     } else this.pauseTimer();
   }
 
-  saveList() {
+  resultSaving() {
     const li = document.createElement('li');
 
     li.classList.add('js-list');
     if (this.isStop) {
-      list.appendChild(li).textContent = renderField.textContent;
-      this.savedResult.push(renderField.textContent);
+      list.appendChild(li).textContent = innerResultField.textContent;
+      this.savedResult.push(innerResultField.textContent);
     } else return;
 
     console.log(this.savedResult);
@@ -49,7 +49,7 @@ class Timer {
     this.isStop = false;
     startBtn.textContent = 'CONTINUE';
   }
-  stopTimer() {
+  resetTimer() {
     clearInterval(this.asyncId);
     this.isStop = false;
     this.deltaTime = 0;
@@ -58,16 +58,16 @@ class Timer {
   }
 }
 
-const newTimer = new Timer(null, 0, render);
+const newTimer = new Timer(null, 0, timerRender);
 
-function render({ minute, seconds, milliseconds }) {
+function timerRender({ minute, seconds, milliseconds }) {
   seconds < 10
-    ? (renderField.textContent = `${minute}:0${seconds}:${milliseconds}`)
-    : (renderField.textContent = `${minute}:${seconds}:${milliseconds}`);
+    ? (innerResultField.textContent = `${minute}:0${seconds}:${milliseconds}`)
+    : (innerResultField.textContent = `${minute}:${seconds}:${milliseconds}`);
 }
 
 startBtn.addEventListener('click', newTimer.startTimer.bind(newTimer));
-resetBtn.addEventListener('click', newTimer.stopTimer.bind(newTimer));
-lap.addEventListener('click', newTimer.saveList.bind(newTimer));
+resetBtn.addEventListener('click', newTimer.resetTimer.bind(newTimer));
+lapBtn.addEventListener('click', newTimer.resultSaving.bind(newTimer));
 
 
