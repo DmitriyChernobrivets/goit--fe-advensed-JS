@@ -24,19 +24,23 @@ class Timer {
         const seconds = date.getSeconds();
         const minute = date.getMinutes();
 
+        resetBtn.setAttribute("disabled", "");
         this.isStop = true;
         this.deltaTime = currentTime - this.startTime;
         this.onTick({ minute, seconds, milliseconds });
         startBtn.textContent = 'PAUSE';
       }, 100);
-    } else this.pauseTimer();
+    } else {
+      this.pauseTimer();
+      resetBtn.removeAttribute("disabled");
+    }
   }
 
   resultSaving() {
     const li = document.createElement('li');
 
     li.classList.add('js-list');
-    if (this.isStop) {
+    if ((innerResultField.textContent !== "0:00:0") && (!this.savedResult.includes(innerResultField.textContent)))  {
       list.appendChild(li).textContent = innerResultField.textContent;
       this.savedResult.push(innerResultField.textContent);
     } else return;

@@ -62,20 +62,25 @@ class Timer {
           const milliseconds = Number.parseInt(date.getMilliseconds() / 100);
           const seconds = date.getSeconds();
           const minute = date.getMinutes();
-
+          
+          resetBtn.setAttribute("disabled", "");
           this.isStop = true;
           this.deltaTime = currentTime - this.startTime;
           innerTextRender({ minute, seconds, milliseconds });
           startBtn.textContent = 'PAUSE';
         }, 100);
-      } else 
-        pauseTimer();
+      } else {        
+        pauseTimer();    
+        
+        resetBtn.removeAttribute("disabled");
+      }
+      
     }
     const saveList = () => {
       const li = document.createElement('li');
 
       li.classList.add('js-list');     
-      if (this.isStop) {
+      if (((clockface.textContent !== "0:00:0") && (!this.savedResult.includes(clockface.textContent)))) {
         list.appendChild(li).textContent = clockface.textContent;
         this.savedResult.push(clockface.textContent);
       } else return;
@@ -97,8 +102,8 @@ class Timer {
     }
 
     startBtn.addEventListener('click', startTimer);
-    resetBtn.addEventListener('click', resetTimer);
     lapBtn.addEventListener('click', saveList);
+    resetBtn.addEventListener('click', resetTimer);
   }
 }
 
