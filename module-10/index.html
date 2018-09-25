@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Module-10</title>
+</head>
+<body>
+        <div class="container">
+                <form class="search-form">
+                    <button class="mdc-btn js-all-users" type="submit">ALL USERS</button>
+                </form>
+                
+                <form class="search-form id-form">
+                  <input class="byId"type="text" name="country" placeholder="Enter user ID">
+                  <button class="mdc-btn js-user-byId" type="submit">BY ID</button>
+
+                </form>
+                <form class="search-form">
+                  <input class="name"type="text" name="country" placeholder="Enter user name">
+                  <input class="age"type="text" name="country" placeholder="Enter user AGE">
+                  <button class="mdc-btn js-user-add" type="submit">UPDATE</button>
+                </form>
+                <form class="search-form">
+                  <input class="delete"type="text" name="country" placeholder="Enter ID to DELETE">
+                  <button class="mdc-btn js-user-delete" type="submit">DELETE</button>
+                </form>
+
+              </div>
+              <p class="byId-err"></p>
+              <table class="table">
+                    <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>NAME</th>
+                              <th>AGE</th>
+                            </tr>
+                          </thead>
+                    <tbody></tbody>
+            </table>
+    <script src="index.js"></script>
+</body>
+</html>
