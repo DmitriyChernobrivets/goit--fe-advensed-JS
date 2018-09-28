@@ -1,0 +1,60 @@
+body {
+  display: flex;
+  justify-content: space-around;
+}
+* {
+  box-sizing: border-box;
+}
+form {
+  width: 200px;
+}
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.root {
+  padding: 10px;
+  min-height: 1px;
+  width: 700px;
+  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 0 5px 5px rgb(204, 203, 203);
+}
+.card-container {
+  width: 32%;
+  height: 300px;
+  box-shadow: 0 0 5px 5px rgb(204, 203, 203);
+  padding: 12px;
+  -webkit-animation: animation 1s alternate;
+  -moz-animation: animation 2s alternate;
+  -o-animation: animation 2s alternate;
+  animation: animation 2s alternate;
+  margin-bottom: 10px;
+}
+.card-container:not(:nth-child(3n)) {
+  margin-right: 13px;
+}
+.box {
+  display: flex;
+  justify-content: space-around;
+}
+@keyframes animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#box {
+  -webkit-animation: animation 0.5s alternate;
+  -moz-animation: animation 0.5s alternate;
+  -o-animation: animation 0.5s alternate;
+  animation: animation 0.5s alternate;
+}
+.err {
+  margin: 0 auto;
+  font-size: 50px;
+}

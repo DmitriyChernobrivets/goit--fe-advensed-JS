@@ -8,20 +8,27 @@ const galleryItems = [
 ];
 
 const gallery = document.querySelector('.js-image-gallery');
+const tags = {
+    fullview: document.createElement('div'),
+    fullviewImg: document.createElement('img'),
+    itemList: document.createElement('ul'),
+}
 
-const galleryRendering = () => {
-    //Создаем Елементы
-    const fullview = document.createElement('div');
-    const fullviewImg = document.createElement('img');
-    const itemList = document.createElement('ul');   
-    //Задаеи класы
+const galleryRendering = ({fullview, fullviewImg, itemList}) => {
+    galleryMainPlaceholder({fullview, fullviewImg, itemList});
+    galleryListCreate(galleryItems, itemList);
+    itemCapture(fullviewImg, itemList);
+}
+
+const galleryMainPlaceholder = ({fullview, fullviewImg, itemList}) => {
     fullview.classList.add('fullview');
     fullviewImg.classList.add('fullview-preview');
     itemList.classList.add('items-view');
-    // Отрисовывает в ДОМ
     gallery.append(fullview, itemList);
     fullview.appendChild(fullviewImg);
-    // Создаем и рисуем список картинок
+}
+
+const galleryListCreate = (galleryItems, itemList) => {
     galleryItems.forEach((el,li, img) => {
         li = document.createElement('li');
         img = document.createElement('img');
@@ -30,15 +37,15 @@ const galleryRendering = () => {
         img.dataset.fullview = el.fullview;
         img.alt = el.alt;
     });
-    //Задаем начальный фокус и src главной картинки из сгенерированого списка
-    const firstChild = itemList.firstChild.firstChild;
+}
 
+const itemCapture = (fullviewImg, itemList) => {
+    const firstChild = itemList.firstChild.firstChild;
     firstChild.classList.add('border');
     fullviewImg.src = firstChild.dataset.fullview;
     fullviewImg.alt = firstChild.alt;
-
-    return fullviewImg;
 }
+
 
 const  galleryEventClick = (event) => {
     const target = event.target;
@@ -47,17 +54,14 @@ const  galleryEventClick = (event) => {
     // проверка клика на попадение в нужную картинку и задаем фокус
     if (((target.nodeName === "IMG") && (target !== fullviewImg))) {
         fullviewImg.src = target.dataset.fullview;
-        imageList.forEach(el => {
-            if (el !== target) {
-                el.classList.remove('border')
-            } else 
-                el.classList.add('border')
-        })
-    }
+        imageList.forEach(el => el !== target 
+                              ? el.classList.remove('border') 
+                              : el.classList.add('border')          
+    )}
     else return;
 }
 
 
 
 gallery.addEventListener('click', galleryEventClick);
-galleryRendering();
+galleryRendering(tags);

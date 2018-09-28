@@ -15,27 +15,32 @@ class Timer {
 
   startTimer() {
     if (!this.isStop) {
-      this.startTime = Date.now() - this.deltaTime;
-
-      this.asyncId = setInterval(() => {
-        const date = new Date(this.deltaTime);
-        const currentTime = Date.now();
-        const milliseconds = Number.parseInt(date.getMilliseconds() / 100);
-        const seconds = date.getSeconds();
-        const minute = date.getMinutes();
-
-        resetBtn.setAttribute("disabled", "");
-        this.isStop = true;
-        this.deltaTime = currentTime - this.startTime;
-        this.onTick({ minute, seconds, milliseconds });
-        startBtn.textContent = 'PAUSE';
-      }, 100);
+      this.startTime(this.deltaTime);
+      this.intervalFunc();
     } else {
       this.pauseTimer();
       resetBtn.removeAttribute("disabled");
     }
   }
+  
+  startTime(deltaTime) {
+    this.start = Date.now() - deltaTime;
+  }
+  intervalFunc() {
+    this.asyncId = setInterval(() => {
+      const date = new Date(this.deltaTime);
+      const currentTime = Date.now();
+      const milliseconds = Number.parseInt(date.getMilliseconds() / 100);
+      const seconds = date.getSeconds();
+      const minute = date.getMinutes();
 
+      resetBtn.setAttribute("disabled", "");
+      this.isStop = true;
+      this.deltaTime = currentTime - this.start;
+      this.onTick({ minute, seconds, milliseconds });
+      startBtn.textContent = 'PAUSE';
+    }, 100);
+  }
   resultSaving() {
     const li = document.createElement('li');
 
@@ -62,13 +67,13 @@ class Timer {
   }
 }
 
-const newTimer = new Timer(null, 0, timerRender);
-
 function timerRender({ minute, seconds, milliseconds }) {
   seconds < 10
     ? (innerResultField.textContent = `${minute}:0${seconds}:${milliseconds}`)
     : (innerResultField.textContent = `${minute}:${seconds}:${milliseconds}`);
 }
+
+const newTimer = new Timer(null, 0, timerRender);
 
 startBtn.addEventListener('click', newTimer.startTimer.bind(newTimer));
 resetBtn.addEventListener('click', newTimer.resetTimer.bind(newTimer));
