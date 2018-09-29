@@ -143,7 +143,7 @@ const isEmptySearch = (filter, markup) => {
     filter.sizes.length == 0 &&
     filter.release_dates.length == 0 &&
     filter.colors.length == 0
-      ? "<p class='err'>НИЧEГО НЕ НАЙДЕНО</>"
+      ? templateFunc(LAPTOPS)
       : markup;
   return isEmptySearch;
 };
