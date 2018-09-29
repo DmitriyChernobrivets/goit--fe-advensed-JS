@@ -130,10 +130,12 @@ const filterMatch = (obj, filter) => {
   );
 }
 
-const arrayFilter =()=> {
-  filteredArr = LAPTOPS.filter(el => {
-    filterMatch(el, filter);
+const arrayFilter = (filter) => {
+  const filteredArr = LAPTOPS.filter(el => {
+    return filterMatch(el, filter);
   });
+  return filteredArr;
+
 };
 
 const isEmptySearch = (filter, markup) => {
@@ -153,9 +155,10 @@ const submitForm = e => {
     colors: [],
     release_dates: []
   };
+
   checkboxFilter(filter);
-  arrayFilter(filter);
-  markup = templateFunc(filteredArr);
+  const newFIltereArr = arrayFilter(filter);
+  markup = templateFunc(newFIltereArr);
   ROOT.innerHTML = isEmptySearch(filter, markup);
 };
 
