@@ -33,7 +33,10 @@ class Gallery {
         this.mainRender(fullview, fullviewImg, itemList, main);
         this.galleryListCreate(this.items, itemList);
         this.imgCapture(itemList, this.defaultActiveItem, fullviewImg);
+        this.registerImgClick(main, fullviewImg);
+    }
 
+    registerImgClick(main, fullviewImg) {
         const galleryEventClick = (event) => {
             const target = event.target;
             const imageList = document.querySelectorAll('.items-view_img');

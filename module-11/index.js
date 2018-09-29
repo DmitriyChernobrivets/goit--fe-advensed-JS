@@ -122,13 +122,17 @@ const checkboxFilter = filter => {
   });
 };
 
-const arrayFilter = filter => {
+const filterMatch = (obj, filter) => {
+  return (
+    (filter.sizes.includes(obj.size) || (filter.sizes.length === 0)) &&
+    (filter.colors.includes(obj.color) || (filter.colors.length === 0)) &&
+    (filter.release_dates.includes(obj.release_date) || (filter.release_dates.length == 0))
+  );
+}
+
+const arrayFilter =()=> {
   filteredArr = LAPTOPS.filter(el => {
-    return (
-      filter.sizes.includes(el.size) ||
-      filter.colors.includes(el.color) ||
-      filter.release_dates.includes(el.release_date)
-    );
+    filterMatch(el, filter);
   });
 };
 
