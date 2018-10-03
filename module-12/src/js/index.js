@@ -4,7 +4,7 @@ const btn = document.querySelector(".js-submit");
 
 const fetchApi = () => {
   return fetch(
-    "http://api.linkpreview.net/?key=123456&q=https://www.google.com"
+    "https://api.linkpreview.net/?key=123456&q=http://www.google.com"
   )
     .then(response => {
       if (response.ok) return response.json();
@@ -20,4 +20,5 @@ const fetchApi = () => {
     })
     .catch(err => console.log("err" + err.statusText));
 };
+
 btn.addEventListener("click", fetchApi);
