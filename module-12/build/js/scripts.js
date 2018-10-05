@@ -13,49 +13,75 @@ var parsedItem = null;
 var err = {
   error: null
 };
+var API_KEY = "5bb4b458291ae628454d202cf0a8b6e7f2a62a1c36d46&q";
 var pattern = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]{3,25}\.(([a-z]{2,4})\.)?([a-z]{2,4})(\/)?$/; //// ^(https?:\/\/)?(www\.)?[a-zA-Z0-9]{3,25}\.[a-z]{2,4}$
 var localStorageKeys = Object.keys(localStorage);
 
-var compileCardTemplate = function compileCardTemplate(obj, template) {
+var fetchPromise = function fetchPromise(e) {
+  e.preventDefault();
+  preloaderToogle();
+  if (!isValidInput()) {
+    errorCompileTemplate(err, errTemplate, "Ошибка Ввода");
+    preloaderToogle();
+    return;
+  }
+  return fetch("https://api.linkpreview.net/?key=" + API_KEY + "&q=" + input.value).then(fetchResponseHandler).then(fetchDataProcessing).catch(function (errr) {
+    return console.log("ERROR", errr);
+  });
+};
+
+onPageLoadedList();
+
+btn.addEventListener("click", fetchPromise);
+
+//==============================HELPERS===================================
+
+function fetchResponseHandler(response) {
+  if (response.ok) {
+    return response.json();
+  }
+  errorCompileTemplate(err, errTemplate, "Ошибка Запроса");
+  preloaderToogle();
+}
+function compileCardTemplate(obj, template) {
   var templateFunciton = Handlebars.compile(template);
   var markup = templateFunciton(obj);
   cardList.insertAdjacentHTML("afterbegin", markup);
-};
+}
 
-var errorCompileTemplate = function errorCompileTemplate(obj, template, StringErr) {
+function errorCompileTemplate(obj, template, StringErr) {
   var templateFunciton = Handlebars.compile(template);
   obj.error = StringErr;
   var markup = templateFunciton(obj);
   errorContainer.innerHTML = markup;
-};
+}
 
-var removeHandler = function removeHandler(storageId) {
+function removeHandler(storageId) {
   var removeBtn = document.querySelector(".remove");
   removeBtn.addEventListener("click", function () {
     localStorage.removeItem(storageId);
     removeBtn.parentElement.remove();
     errorCompileTemplate(err, errTemplate, "Закладка удалена");
   });
-};
+}
 
-var preloaderToogle = function preloaderToogle() {
-  return preloader.classList.toggle("show");
-};
+function preloaderToogle() {
+  preloader.classList.toggle("show");
+}
 
-var isValidInput = function isValidInput() {
+function isValidInput() {
   return pattern.test(input.value) ? true : false;
-};
+}
 
-var onPageLoadedList = function onPageLoadedList() {
+function onPageLoadedList() {
   localStorageKeys.forEach(function (el) {
     parsedItem = JSON.parse(localStorage.getItem(el));
     compileCardTemplate(parsedItem, template);
     removeHandler(parsedItem.title);
   });
-};
-onPageLoadedList();
+}
 
-var fetchDataProcessing = function fetchDataProcessing(data) {
+function fetchDataProcessing(data) {
   localStorageKeys = [].concat(_toConsumableArray(Object.keys(localStorage)));
   if (!localStorageKeys.includes(data.title)) {
     compileCardTemplate(data, template);
@@ -66,25 +92,4 @@ var fetchDataProcessing = function fetchDataProcessing(data) {
     preloaderToogle();
     return errorCompileTemplate(err, errTemplate, "Такая закладка уже есть");
   }
-};
-
-var fetchPromise = function fetchPromise(e) {
-  e.preventDefault();
-  preloaderToogle();
-  if (!isValidInput()) {
-    errorCompileTemplate(err, errTemplate, "Ошибка Ввода");
-    preloaderToogle();
-    return;
-  }
-  return fetch("https://api.linkpreview.net/?key=5bb4b458291ae628454d202cf0a8b6e7f2a62a1c36d46&q=" + input.value).then(function (response) {
-    if (response.ok) {
-      return response.json();
-    }
-    errorCompileTemplate(err, errTemplate, "Ошибка Запроса");
-    preloaderToogle();
-  }).then(fetchDataProcessing).catch(function (errr) {
-    return console.log("ERROR", errr);
-  });
-};
-
-btn.addEventListener("click", fetchPromise);
+}
