@@ -1,4 +1,5 @@
 "use strict";
+
 const template = document.querySelector("#card").innerHTML.trim();
 const errTemplate = document.querySelector("#err").innerHTML.trim();
 const cardList = document.querySelector(".js-result");
@@ -31,7 +32,7 @@ const fetchPromise = e => {
 onPageLoadedList();
 
 btn.addEventListener("click", fetchPromise);
-
+document.body.addEventListener("click", removeHandler);
 //==============================HELPERS===================================
 
 function fetchResponseHandler(response) {
@@ -54,13 +55,13 @@ function errorCompileTemplate(obj, template, StringErr) {
   errorContainer.innerHTML = markup;
 }
 
-function removeHandler(storageId) {
-  const removeBtn = document.querySelector(".remove");
-  removeBtn.addEventListener("click", () => {
-    localStorage.removeItem(storageId);
-    removeBtn.parentElement.remove();
+function removeHandler(event) {
+  const target = event.target;
+  if (target.className === "remove") {
+    target.parentElement.remove();
     errorCompileTemplate(err, errTemplate, "Закладка удалена");
-  });
+    localStorage.removeItem(target.nextSibling.textContent);
+  } else return;
 }
 
 function preloaderToogle() {
@@ -75,7 +76,6 @@ function onPageLoadedList() {
   localStorageKeys.forEach(el => {
     parsedItem = JSON.parse(localStorage.getItem(el));
     compileCardTemplate(parsedItem, template);
-    removeHandler(parsedItem.title);
   });
 }
 
@@ -83,7 +83,6 @@ function fetchDataProcessing(data) {
   localStorageKeys = [...Object.keys(localStorage)];
   if (!localStorageKeys.includes(data.title)) {
     compileCardTemplate(data, template);
-    removeHandler(data.title);
     localStorage.setItem(data.title, JSON.stringify(data));
     preloaderToogle();
   } else {

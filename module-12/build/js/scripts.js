@@ -33,7 +33,7 @@ var fetchPromise = function fetchPromise(e) {
 onPageLoadedList();
 
 btn.addEventListener("click", fetchPromise);
-
+document.body.addEventListener("click", removeHandler);
 //==============================HELPERS===================================
 
 function fetchResponseHandler(response) {
@@ -56,13 +56,13 @@ function errorCompileTemplate(obj, template, StringErr) {
   errorContainer.innerHTML = markup;
 }
 
-function removeHandler(storageId) {
-  var removeBtn = document.querySelector(".remove");
-  removeBtn.addEventListener("click", function () {
-    localStorage.removeItem(storageId);
-    removeBtn.parentElement.remove();
+function removeHandler(event) {
+  var target = event.target;
+  if (target.className === "remove") {
+    target.parentElement.remove();
     errorCompileTemplate(err, errTemplate, "Закладка удалена");
-  });
+    localStorage.removeItem(target.nextSibling.textContent);
+  } else return;
 }
 
 function preloaderToogle() {
@@ -77,7 +77,6 @@ function onPageLoadedList() {
   localStorageKeys.forEach(function (el) {
     parsedItem = JSON.parse(localStorage.getItem(el));
     compileCardTemplate(parsedItem, template);
-    removeHandler(parsedItem.title);
   });
 }
 
@@ -85,7 +84,6 @@ function fetchDataProcessing(data) {
   localStorageKeys = [].concat(_toConsumableArray(Object.keys(localStorage)));
   if (!localStorageKeys.includes(data.title)) {
     compileCardTemplate(data, template);
-    removeHandler(data.title);
     localStorage.setItem(data.title, JSON.stringify(data));
     preloaderToogle();
   } else {
