@@ -59,8 +59,8 @@ module.exports = {
     })
   ],
   devServer: {
-    noInfo: false,
-    quiet: false,
+    noInfo: true,
+    quiet: true,
     stats: "errors-only",
     compress: true
   }

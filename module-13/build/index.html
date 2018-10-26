@@ -25,26 +25,11 @@
 
         <div class="err-Container"></div>
         <form class="search-form">
-            <p class="error"></p>
             <input type="text" name="url" class="url" placeholder="Введите url">
             <button class="mdc-btn js-submit" type="submit">Добавить</button>
         </form>
         <ul class="result js-result"></ul>
     </div>
-    <template id="card">
-        <li>
-
-            <div class="img-container">
-                <img src={{image}} alt="Sorry, No-Image" height="50" width="150">
-            </div>
-            <button class="remove">X</button>
-            <p class="title">{{title}}</p>
-            <p class="discription">{{description}}</p>
-        </li>
-    </template>
-    <template id="err">
-        <div class="error">{{error}}</div>
-    </template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script src="main.js"></script>
 </body>
