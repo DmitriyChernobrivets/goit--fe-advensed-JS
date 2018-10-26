@@ -95,14 +95,21 @@ ul > li:not(:nth-child(3n)) {
   position: relative;
 }
 
+.show-error {
+  display: block !important;
+}
+
 .error {
   position: absolute;
+  display: none;
   width: 100px;
-  min-height: 60px;
+  min-height: 30px;
   background-color: #f7c2c2;
   box-shadow: 0 0 2px 2px #cfcdcd;
   font-size: 20px;
+  top: 30px;
   left: -120px;
+  font-size: 15px;
   padding: 5px;
   -webkit-animation: pulsing 2s alternate;
   animation: pulsing 1s alternate;
