@@ -23,7 +23,7 @@ export default class Model {
   promiseItem(value) {
     return axios
       .get(`https://api.linkpreview.net/?key=${this.API_KEY}&q=${value}`)
-      .then(res => res.title)
+
       .catch(err => new Error("error"));
   }
   removeStorageData(id) {

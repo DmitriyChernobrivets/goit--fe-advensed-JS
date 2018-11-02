@@ -6,5 +6,3 @@ const view = new View();
 const model = new Model();
 
 new Control(model, view);
-
-console.log(Model);

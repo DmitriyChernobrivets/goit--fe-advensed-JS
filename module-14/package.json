@@ -16,6 +16,7 @@
     "@babel/cli": "^7.1.2",
     "@babel/helper-plugin-utils": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "axios": "^0.18.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
@@ -42,8 +43,8 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
+    "@babel/core": "^7.1.2",
     "autoprefixer": "^9.3.1",
-    "babel-core": "^6.26.3",
     "jest-css-modules-transform": "^2.1.1"
   }
 }
