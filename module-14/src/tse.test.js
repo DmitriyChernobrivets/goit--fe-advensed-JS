@@ -23,9 +23,7 @@ describe("LocalStorage", () => {
   });
   it("should be one argument", () => {
     const model = new Model();
-    expect(
-      model.addTempObj({ title: "Google" }, { title: "Google" })
-    ).toBeNull();
+    expect(model.addTempObj({ title: "Google" }, 1, "asd")).toBeNull();
   });
   it("should be one argument", () => {
     const model = new Model();
@@ -33,15 +31,24 @@ describe("LocalStorage", () => {
   });
 });
 describe("Promise", () => {
-  it("Should to come object", () => {
+  it("Should to come response", () => {
     const model = new Model();
 
-    expect(model.promiseItem("string")).resolves.toMatchObject();
-  });
-  it("Should to come object", () => {
-    const model = new Model();
-
-    expect(model.promiseItem()).rejects.toThrow(new Error("error"));
+    model
+      .promiseItem("google.com")
+      .then(data =>
+        expect(data).toEqual(
+          expect.objectContaining({
+            title: "Google",
+            description: expect.any(String),
+            url: expect.any(String),
+            image: expect.any(String)
+          })
+        )
+      )
+      .catch(err => {
+        expect(err).not.toBeNull();
+      });
   });
 });
 
